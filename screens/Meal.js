@@ -1,19 +1,16 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  Button,
-} from "react-native";
-import { useLayoutEffect } from "react";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { useLayoutEffect, useContext } from "react";
 import Details from "../components/Details";
 import Subtitle from "../components/Meal/Subtitle";
 import List from "../components/Meal/List";
 import IconButton from "../components/IconButton";
+import { FavoritesContext } from "../store/context/favoritesContext";
 
 const Meal = ({ route, navigation }) => {
+  const { ids, addFavorite, removeFavorite } = useContext(FavoritesContext);
+
   const {
+    id,
     affordability,
     complexity,
     duration,
@@ -21,19 +18,28 @@ const Meal = ({ route, navigation }) => {
     ingredients,
     steps,
     title,
-  } = route.params.item;
+  } = route.params;
 
-  const pressHandler = () => {
-    console.log("Pressed!");
+  const isFavorite = ids.includes(id);
+
+  const favoritesHandler = () => {
+    if (isFavorite) {
+      return removeFavorite(id);
+    }
+    return addFavorite(id);
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton onPress={pressHandler} icon="star" color="white" />
+        <IconButton
+          onPress={favoritesHandler}
+          icon={isFavorite ? "star" : "star-outline"}
+          color="white"
+        />
       ),
     });
-  }, [navigation, pressHandler]);
+  }, [navigation, favoritesHandler]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

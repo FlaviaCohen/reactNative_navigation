@@ -7,14 +7,17 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Details from "./Details";
+import Details from "../Details";
+import { MEALS } from "../../data/mock";
 
-const MealItem = ({ item }) => {
-  const { title, imageUrl, duration, complexity, affordability } = item.item;
+const MealItem = ({ itemId }) => {
+  const selectedMeal = MEALS.filter((meal) => meal.id === itemId.item)[0];
+
+  const { title, imageUrl, duration, complexity, affordability } = selectedMeal;
 
   const navigation = useNavigation();
   const pressHandler = () => {
-    navigation.navigate("Meal", item);
+    navigation.navigate("Meal", selectedMeal);
   };
 
   return (

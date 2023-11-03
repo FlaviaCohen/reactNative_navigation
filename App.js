@@ -1,5 +1,4 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, Button } from "react-native";
 import Categories from "./screens/Categories";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
@@ -9,6 +8,7 @@ import Meals from "./screens/Meals";
 import Meal from "./screens/Meal";
 import Favorites from "./screens/Favorites";
 import { Ionicons } from "@expo/vector-icons";
+import FavoritesContextProvider from "./store/context/favoritesContext";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -75,37 +75,39 @@ const App = () => {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: "#351401" },
-            headerTintColor: "white",
-            contentStyle: { backgroundColor: "#3f2f25" },
-          }}
-        >
-          {/* First screen is used as the default */}
-          <Screen
-            name="MealsCategories"
-            //component={Categories}
-            component={DrawerNavigation}
-            options={{
-              //title: "All Categories",
-              headerShown: false,
+      <FavoritesContextProvider>
+        <NavigationContainer>
+          <Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: "#351401" },
+              headerTintColor: "white",
+              contentStyle: { backgroundColor: "#3f2f25" },
             }}
-          />
-          <Screen
-            name="Meals"
-            component={Meals} /* options={handleMealsOptions} */
-          />
-          <Screen
-            name="Meal"
-            component={Meal}
-            options={{ title: "About this meal" }}
-            // This way elements to header can be added but these can not interact with screen elements
-            //options={{ headerRight: () => <Button title="Tap me!" /> }}
-          />
-        </Navigator>
-      </NavigationContainer>
+          >
+            {/* First screen is used as the default */}
+            <Screen
+              name="MealsCategories"
+              //component={Categories}
+              component={DrawerNavigation}
+              options={{
+                //title: "All Categories",
+                headerShown: false,
+              }}
+            />
+            <Screen
+              name="Meals"
+              component={Meals} /* options={handleMealsOptions} */
+            />
+            <Screen
+              name="Meal"
+              component={Meal}
+              options={{ title: "About this meal" }}
+              // This way elements to header can be added but these can not interact with screen elements
+              //options={{ headerRight: () => <Button title="Tap me!" /> }}
+            />
+          </Navigator>
+        </NavigationContainer>
+      </FavoritesContextProvider>
     </>
   );
 };
