@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "navigation",
+    "name": "My Recipe App",
     "slug": "navigation",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,18 +12,29 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.flaviacohen.myrecipeapp"
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.flaviacohen.myrecipeapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "458bc621-4fc7-4895-8442-2b3a386ca79f"
+      }
     }
   }
 }
